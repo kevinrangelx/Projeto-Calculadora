@@ -1,6 +1,5 @@
 class CalcController {
     constructor(){        
-
         this._audio = new Audio('click.mp3');
         this._audioOnOff = false;
         this._lastOperation = '';
@@ -174,35 +173,20 @@ class CalcController {
         }
         return lastItem;
     }
-
     setLastNumberToDisplay() {
-
         let lastNumber = this.getLastItem(false);
-
         if(!lastNumber) lastNumber = 0;
-
         this.displayCalc = lastNumber;
-
     }
-
     addOperation(value) {
-
         if(isNaN(this.getlastOperation())) {
-
             if(this.isOperator(value)) {
-
                 this.setLastOperation(value);
-
             } else {
-
                 this.pushOperation(value);
-
                 this.setLastNumberToDisplay();
-
             }
-
         } else {
-        
             if(this.isOperator(value)) {
 
                 this.pushOperation(value);
@@ -213,38 +197,22 @@ class CalcController {
                 this.setLastOperation(newValue);
 
                 this.setLastNumberToDisplay();
-
             }
-            
-
         }
-
     }
-
     addDot() {
-
         let lastOperation = this.getlastOperation();
-
         if(typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
-
         if(this.isOperator(lastOperation) || !lastOperation) {
-
             this.pushOperation('0.');
-
         } else {
             this.setLastOperation(lastOperation.toString() + '.');
         }
-
         this.setLastNumberToDisplay();
-
     }
-
     execBtn(value) {
-
         this.playAudio();
-
         switch(value) {
-
             case 'ac':
                 this.clearAll();
             break;
@@ -290,93 +258,53 @@ class CalcController {
                 this.setError();
             break;
         }
-
     }
-
     initButtonsEvents() {
-
         let buttons = document.querySelectorAll("#buttons > g, #parts > g");
         buttons.forEach(btn=> {
             this.addEventListenerAll(btn, 'click drag', e => {
-
                 let textBtn = btn.className.baseVal.replace("btn-","");
-
                 this.execBtn(textBtn);
-
             });
-
             this.addEventListenerAll(btn, 'mouseover mouseup mousedown', e => {
-
                 btn.style.cursor = "pointer";
-
             });
-
         })
-
     }
-
-    setDislplayDateTime() {
-        
+    setDislplayDateTime() {   
         this.displayDate = this.currentDate.toLocaleDateString(this._locale, {
             day: "2-digit",
             month: "long",
             year: "numeric"
         });
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
-
     }
-
     get displayTime() {
-
         return this._timeEl.innerHTML;
-
     }
-
     set displayTime(value) {
-        
         return this._timeEl.innerHTML = value;
-
     }
-
-    get displayDate() {
-        
+    get displayDate() {   
         return this._dateEl.innerHTML;
-
     }
-
-    set displayDate(value) {
-        
+    set displayDate(value) {   
         return this._dateEl.innerHTML = value;
-
     }
-
     get displayCalc() {
-
         return this._displayCalcEl.innerHTML;
-
     }
-
     set displayCalc(value) {
-
         if(value.toString().length > 10){
             this.setError();
             return false;
         }
-
         this._displayCalcEl.innerHTML = value;
-
     }
-
     get currentDate() {
-
         return new Date();
-
     }
-
-    set currentDate(value) {
-        
+    set currentDate(value) {   
         this._currentDate = value;
-
     }
-
 }
